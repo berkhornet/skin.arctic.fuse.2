@@ -76,13 +76,20 @@
                 <texturenofocus />
                 <font />
             </control>
-            <control type="group">
+            <!-- PVR005: remove original group name -->
+            <!-- control type="group">
                 <animation effect="fade" start="100" end="30" condition="true">Conditional</animation>
                 <include content="Info_Viewline">
                     <param name="label">$INFO[Control.GetLabel(28)]</param>
                     <param name="top">20</param>
                     <param name="left">0</param>
                 </include>
+            </control -->
+            <!-- PVR005: alternative group name -->
+            <control type="label">
+                <label fallback="19055">$INFO[Control.GetLabel(28)]</label>
+                <font>font_epg_group_switcher</font>
+                <textcolor>$VAR[ColorGradient]</textcolor>
             </control>
         </control>
     </include>
