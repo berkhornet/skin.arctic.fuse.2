@@ -277,12 +277,10 @@
     </variable>
     
     <variable name="TextPVRPlotboxHeader">
-        <value condition="String.IsEqual(ListItem.Label,No information available)"></value>
+        <value condition="String.IsEqual(ListItem.Label,No information available) + !Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501)"></value>
         <value condition="!$EXP[Live_Football_Anova] + !$EXP[Live_Football_FHNatho] + !$EXP[Live_Football_Anova_SkySportsPlus]">$VAR[TextPVREPGProgramInfo] : $INFO[ListItem.StartTime,,]$INFO[ListItem.EndTime, - ,]</value>
         <value>$VAR[TextPVREPGProgramInfo]</value>
     </variable>
-    
-    
     
     <variable name="TextPVREPGProgramInfo">
         <value condition="$EXP[Standard_Channel]">$INFO[ListItem.Label]</value>
@@ -292,13 +290,9 @@
         <value condition="$EXP[Live_Football_Anova_SkySportsPlus]">EVENT $VAR[TextPVREPGSkySportsPlusEventNo]: $INFO[ListItem.Label]</value>
         <value>$INFO[ListItem.Label]</value>
     </variable>
+
     
-    <variable name="TextPVRPlotboxHeader">
-        <value condition="!$EXP[Live_Football_Anova] + !$EXP[Live_Football_FHNatho] + !$EXP[Live_Football_Anova_SkySportsPlus]">$VAR[TextPVREPGProgramInfo] : $INFO[ListItem.StartTime,,]$INFO[ListItem.EndTime, - ,]</value>
-        <value>$VAR[TextPVREPGProgramInfo]</value>
-    </variable>
-    
-	<!--MISC019: Expressions and Variables for Custom Episode Type Banner-->
+	<!-- MISC019: Expressions and Variables for Custom Episode Type Banner-->
 	<expression name="Info_Line_Episode_Banner_Exists">String.IsEqual(Container(99950).ListItem.Property(episode_type),series_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),season_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),series_finale) | String.IsEqual(Container(99950).ListItem.Property(episode_type),season_finale) | String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_finale)</expression>
 	
 	<variable name="Info_Line_Episode_Banner_Color">
