@@ -1175,8 +1175,26 @@
                     <visible>!$PARAM[is_fhd]</visible>
                     <visible>!$PARAM[is_hd]</visible>
                     <visible>!$PARAM[is_sd]</visible>
-                    <visible>$PARAM[is_web]</visible>
+                    <!-- MISC033: replace "WEB" with "INFO" on home page widgets -->
+                    <visible>$PARAM[is_web] + !Window.IsVisible(Home)</visible>
                 </control>
+                <!-- MISC033: START replace "WEB" with "INFO" on home page widgets -->                
+                <control type="label">
+                    <align>center</align>
+                    <top>info_tag_offset_y</top>
+                    <aligny>top</aligny>
+                    <font>font_infotag_bold</font>
+                    <textcolor>ff2a2a2a</textcolor>
+                    <shadowcolor>20ffffff</shadowcolor>
+                    <label>INFO</label>
+                    <visible>!$PARAM[is_set]</visible>
+                    <visible>!$PARAM[is_4k]</visible>
+                    <visible>!$PARAM[is_fhd]</visible>
+                    <visible>!$PARAM[is_hd]</visible>
+                    <visible>!$PARAM[is_sd]</visible>
+                    <visible>$PARAM[is_web] + Window.IsVisible(Home)</visible>
+                </control>
+                <!-- MISC033: END replace "WEB" with "INFO" on home page widgets -->  
                 <control type="label">
                     <align>center</align>
                     <top>info_tag_offset_y</top>
@@ -1250,6 +1268,38 @@
                     <param name="visible">!String.IsEmpty($PARAM[container]ListItem.Album)</param>
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
                 </include>
+                
+                <!-- MISC035: reinstate infoline episode NxNN -->
+                <!-- Season / Episode -->
+                <include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_01">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_04">true</param>
+                    <param name="label_01">$INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,0,]</param>
+                    <param name="label_02">$INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,,]</param>
+                    <param name="label_03">$INFO[Container(99950).ListItem.Season,,x]$INFO[Container(99950).ListItem.Episode,0,]</param>
+                    <param name="label_04">$INFO[Container(99950).ListItem.Season,,x]$INFO[Container(99950).ListItem.Episode,,]</param>
+                    <param name="visible_01">!String.IsEmpty($PARAM[container]ListItem.Episode) + Integer.IsLess($PARAM[container]ListItem.Episode,10)</param>
+                    <param name="visible_02">!String.IsEmpty($PARAM[container]ListItem.Episode)</param>
+                    <param name="visible_03">!String.IsEmpty(Container(99950).ListItem.Episode) + Integer.IsLess(Container(99950).ListItem.Episode,10)</param>
+                    <param name="visible_04">!String.IsEmpty(Container(99950).ListItem.Episode)</param>
+                    <param name="textcolor">$PARAM[colordiffuse]_70</param>
+                </include>
+
+                <!-- MISC019: START Custom Infoline Episode Banners -->
+                <include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_02">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_01">true</param>
+                    <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
+                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + System.AddonIsEnabled(script.trakt)]</param>
+                    <param name="textcolor">$VAR[Info_Line_Episode_Banner_Color]</param>
+                </include>
+                <!-- MISC019: END Custom Infoline Episode Banners -->
 
                 <!-- Year / Premiered -->
                 <include content="Info_Line_Items">
@@ -1673,7 +1723,8 @@
 
     <include name="Info_Panel">
         <param name="container" />
-        <param name="plotheight">80</param>
+        <!-- MISC038: plotheight changed from 80 -->
+        <param name="plotheight">175</param>
         <param name="plotwidth">info_plot_w</param>
         <param name="colordiffuse">main_fg</param>
         <param name="ratings">true</param>
