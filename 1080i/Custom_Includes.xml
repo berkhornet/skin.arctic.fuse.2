@@ -278,6 +278,7 @@
     
     <variable name="TextPVRPlotboxHeader">
         <value condition="String.IsEqual(ListItem.Label,No information available) + !Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501)"></value>
+        <value condition="String.IsEmpty(ListItem.Label) + !Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501)"></value>
         <value condition="!$EXP[Live_Football_Anova] + !$EXP[Live_Football_FHNatho] + !$EXP[Live_Football_Anova_SkySportsPlus]">$VAR[TextPVREPGProgramInfo] : $INFO[ListItem.StartTime,,]$INFO[ListItem.EndTime, - ,]</value>
         <value>$VAR[TextPVREPGProgramInfo]</value>
     </variable>
