@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="DialogSelect_Viewtypes">
+        <include>Dialog_Dim_Overlay</include>
+        <control type="group">
+            <include>Dimension_DialogSideMenu</include>
+            <include>Animation_Right_Delay</include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogSideMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">1</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <include content="List_DialogSelect">
+                            <param name="id">3</param>
+                            <param name="textcolor">dialog_fg</param>
+                            <pagecontrol>61</pagecontrol>
+                            <onright>61</onright>
+                            <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                            <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                        </include>
+                        <control type="group">
+                            <height>40</height>
+                            <right>20</right>
+                            <bottom>-60</bottom>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <align>right</align>
+                                <font>font_hint_black</font>
+                                <textcolor>main_fg_30</textcolor>
+                                <label>$INFO[Container(3).NumItems,, $LOCALIZE[31022]]</label>
+                            </control>
+                        </control>
+                    </control>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>3</onleft>
+                    </include>
+
+                </control>
+            </include>
+
+        </control>
+
+        <control type="group">
+            <include>Animation_Right_Delay</include>
+            <control type="group">
+                <!-- <animation effect="slide" end="0,200" condition="Container(3).Position(5) | Container(3).Position(6) | Container(3).Position(7) | Container(3).Position(8) | Container(3).Position(9)">Conditional</animation> -->
+                <include content="Dialog_Preview_Def">
+                    <param name="icon">$INFO[Container(3).ListItem.Icon]</param>
+                    <param name="height">680</param>
+                    <param name="width">1147</param>
+                    <param name="right">640</param>
+                    <param name="diffuse">diffuse/landscape_w1140_h680.png</param>
+                </include>
+
+            </control>
+        </control>
+    </include>
+
     <include name="DialogSelect_Standard">
+        <include>Dialog_Dim_Overlay</include>
         <control type="group">
             <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
-            <include content="Dialog_Dim_Side">
-                <param name="slide_condition">True</param>
-            </include>
 
             <!-- Bottom Layer -->
             <include content="Dialog_Background_Side">
@@ -119,13 +189,8 @@
         </control>
 
         <control type="group">
-            <left>120</left>
-            <right>-120</right>
             <visible>!Skin.HasSetting(Dialog.DisableArtworkPreview)</visible>
             <include>Animation_Right_Delay</include>
-            <include content="Animation_SlideIn_Dialog_Side">
-                <param name="slide_condition">True</param>
-            </include>
             <control type="group">
                 <include content="Dialog_Preview_Def">
                     <param name="icon">$INFO[Container(6).ListItem.Icon]</param>
@@ -198,12 +263,11 @@
 
     <include name="DialogVideoManager_Main">
         <definition>
+            <include>Dialog_Dim_Overlay</include>
+
             <control type="group">
                 <include>Dimension_DialogFullMenu</include>
                 <include>Animation_Right_Delay</include>
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
-                </include>
 
                 <!-- Bottom Layer -->
                 <include content="Dialog_Background_Side">

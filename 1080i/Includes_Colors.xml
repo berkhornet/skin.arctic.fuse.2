@@ -133,8 +133,4 @@
         <!-- MISC007: END ColorBackground variable dependent upon colour scheme --> 
         <value>main_bg_100</value>
     </variable>
-
-    <variable name="ColorBackgroundFade">
-        <value>shadow_back</value>
-    </variable>
 </includes>
