@@ -116,12 +116,12 @@
         <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
             <!-- MISC019: parameter changed from main_fg_12 -->
             <param name="colordiffuse">$PARAM[Pillbox_Colour]</param>
-            <param name="textcolor">main_fg_70</param>
+            <param name="textcolor">main_fg_90</param>
             <nested />
         </include>
         <include content="Info_Line_Pillbox_Object" condition="Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)">
             <param name="colordiffuse">panel_fg_12</param>
-            <param name="textcolor">panel_fg_70</param>
+            <param name="textcolor">panel_fg_90</param>
             <nested />
         </include>
         </definition>
@@ -1301,7 +1301,7 @@
                 <param name="visible">$PARAM[visible]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="is_dolbyvision">[String.IsEqual($PARAM[listitem_hdrtype],dolbyvision)]</param>
-                <param name="is_hdr">[String.IsEqual($PARAM[listitem_hdrtype],hdr)]</param>
+                <param name="is_hdr">[String.IsEqual($PARAM[listitem_hdrtype],hdr10)]</param>
                 <param name="is_hlg">[String.IsEqual($PARAM[listitem_hdrtype],hlg)]</param>
             </include>
             <include content="Info_Line_AudioChannels">
