@@ -93,10 +93,24 @@
         </include>
     </include>
 
+    <include name="Info_Line_Pillbox_Object_Bordered">
+        <texturefocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-bordered.png</texturefocus>
+        <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-bordered.png</texturenofocus>
+    </include>
+
+    <include name="Info_Line_Pillbox_Object_Plain">
+        <texturefocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-plain.png</texturefocus>
+        <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-plain.png</texturenofocus>
+    </include>
+
     <include name="Info_Line_Pillbox_Object">
         <control type="button">
-            <texturefocus colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texturefocus>
-            <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texturenofocus>
+            <include content="Info_Line_Pillbox_Object_Bordered" condition="Skin.HasSetting(Glass.EnableBorders)">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            </include>
+            <include content="Info_Line_Pillbox_Object_Plain" condition="!Skin.HasSetting(Glass.EnableBorders)">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            </include>
             <font>font_infotag</font>
             <textcolor>$PARAM[textcolor]</textcolor>
             <focusedcolor>$PARAM[textcolor]</focusedcolor>
@@ -114,13 +128,13 @@
         <param name="Pillbox_Colour">main_fg_12</param>
         <definition>
         <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
-            <!-- MISC019: parameter changed from main_fg_12 -->
+            <!-- MISC019: parameter changed from main_fg_30 -->
             <param name="colordiffuse">$PARAM[Pillbox_Colour]</param>
             <param name="textcolor">main_fg_90</param>
             <nested />
         </include>
         <include content="Info_Line_Pillbox_Object" condition="Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)">
-            <param name="colordiffuse">panel_fg_12</param>
+            <param name="colordiffuse">panel_fg_30</param>
             <param name="textcolor">panel_fg_90</param>
             <nested />
         </include>
@@ -129,7 +143,7 @@
 
     <include name="Info_Line_Label">
         <!-- MISC019: parameter added -->
-        <!--param name="Pillbox_Colour">main_fg_12</param -->
+        <!--param name="Pillbox_Colour">main_fg_30</param -->
         <definition>
             <include content="Object_Control" condition="!Skin.HasSetting(Info.EnablePillboxStyle)">
                 <param name="control">label</param>
@@ -304,7 +318,7 @@
         <param name="items_06">false</param>
         
         <!-- MISC019: parameter added -->
-        <param name="Pillbox_Colour">main_fg_12</param>
+        <param name="Pillbox_Colour">main_fg_30</param>
         
         <definition>
             <include content="Info_Line_Divider" condition="$PARAM[items_01] | $PARAM[items_02] | $PARAM[items_03] | $PARAM[items_04] | $PARAM[items_05] | $PARAM[items_06]">
