@@ -125,7 +125,7 @@
 
     <include name="Info_Line_Pillbox">
         <!-- MISC019: parameter and definition added -->
-        <param name="Pillbox_Colour">main_fg_12</param>
+        <param name="Pillbox_Colour">main_fg_30</param>
         <definition>
         <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
             <!-- MISC019: parameter changed from main_fg_30 -->
