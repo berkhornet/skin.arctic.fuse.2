@@ -124,8 +124,12 @@
     </include>
 
     <include name="Info_Line_Pillbox">
+        <!-- MISC019: parameter and definition added -->
+        <param name="Pillbox_Colour">main_fg_12</param>
+        <definition>
         <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
-            <param name="colordiffuse">main_fg_30</param>
+            <!-- MISC019: parameter changed from main_fg_30 -->
+            <param name="colordiffuse">$PARAM[Pillbox_Colour]</param>
             <param name="textcolor">main_fg_90</param>
             <nested />
         </include>
@@ -134,9 +138,12 @@
             <param name="textcolor">panel_fg_90</param>
             <nested />
         </include>
+        </definition>
     </include>
 
     <include name="Info_Line_Label">
+        <!-- MISC019: parameter added -->
+        <!--param name="Pillbox_Colour">main_fg_30</param -->
         <definition>
             <include content="Object_Control" condition="!Skin.HasSetting(Info.EnablePillboxStyle)">
                 <param name="control">label</param>
@@ -149,6 +156,8 @@
             </include>
             <include content="Info_Line_Pillbox" condition="Skin.HasSetting(Info.EnablePillboxStyle)">
                 <param name="textcolor">$PARAM[textcolor]</param>
+                <!-- MISC019: parameter added -->
+                <param name="Pillbox_Colour">$PARAM[Pillbox_Colour]</param>
                 <nested />
             </include>
         </definition>
@@ -307,6 +316,10 @@
         <param name="items_04">false</param>
         <param name="items_05">false</param>
         <param name="items_06">false</param>
+        
+        <!-- MISC019: parameter added -->
+        <param name="Pillbox_Colour">main_fg_30</param>
+        
         <definition>
             <include content="Info_Line_Divider" condition="$PARAM[items_01] | $PARAM[items_02] | $PARAM[items_03] | $PARAM[items_04] | $PARAM[items_05] | $PARAM[items_06]">
                 <nested />
@@ -314,7 +327,10 @@
             </include>
             <include content="Info_Line_Label" condition="$PARAM[items_01] | $PARAM[items_02] | $PARAM[items_03] | $PARAM[items_04] | $PARAM[items_05] | $PARAM[items_06]">
                 <param name="textcolor">$PARAM[textcolor]</param>
+                <!-- MISC019: parameter added -->
+                <param name="Pillbox_Colour">$PARAM[Pillbox_Colour]</param>
                 <label>$PARAM[label_01]</label>
+                
                 <visible>$PARAM[visible_01]</visible>
                 <nested />
             </include>
@@ -1185,8 +1201,17 @@
             <include content="Info_Line_VideoQuality_Object">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="label">WEB</param>
-                <param name="visible">$PARAM[visible] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web]</param>
+                <!-- MISC033:  + !Window.IsVisible(Home) added -->
+                <param name="visible">$PARAM[visible] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web] + !Window.IsVisible(Home)</param>
             </include>
+            <!-- MISC033: START replace "WEB" with "INFO" on home page widgets --> 
+            <include content="Info_Line_VideoQuality_Icon">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="icon">flags/info-inverted.png</param>
+                <param name="width">40</param>
+                <param name="visible">$PARAM[visible] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web] + Window.IsVisible(Home)</param>
+            </include>
+            <!-- MISC033: END replace "WEB" with "INFO" on home page widgets -->              
             <include content="Info_Line_VideoQuality_Icon">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="icon">flags/info-inverted.png</param>
@@ -1343,6 +1368,39 @@
                     <param name="visible">!String.IsEmpty($PARAM[container]ListItem.Album)</param>
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
                 </include>
+                
+                <!-- MISC035: START reinstate infoline episode NxNN -->
+                <!-- Season / Episode -->
+                <include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_01">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_04">true</param>
+                    <param name="label_01">$INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,0,]</param>
+                    <param name="label_02">$INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,,]</param>
+                    <param name="label_03">$INFO[Container(99950).ListItem.Season,,x]$INFO[Container(99950).ListItem.Episode,0,]</param>
+                    <param name="label_04">$INFO[Container(99950).ListItem.Season,,x]$INFO[Container(99950).ListItem.Episode,,]</param>
+                    <param name="visible_01">!String.IsEmpty($PARAM[container]ListItem.Episode) + Integer.IsLess($PARAM[container]ListItem.Episode,10)</param>
+                    <param name="visible_02">!String.IsEmpty($PARAM[container]ListItem.Episode)</param>
+                    <param name="visible_03">!String.IsEmpty(Container(99950).ListItem.Episode) + Integer.IsLess(Container(99950).ListItem.Episode,10)</param>
+                    <param name="visible_04">!String.IsEmpty(Container(99950).ListItem.Episode)</param>
+                    <param name="textcolor">$PARAM[colordiffuse]_70</param>
+                </include>
+                <!-- MISC035: START reinstate infoline episode NxNN -->
+                
+                <!-- MISC019: START Custom Infoline Episode Banners -->
+                <include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_02">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_01">true</param>
+                    <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
+                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + System.AddonIsEnabled(script.trakt)]</param>
+                    <param name="Pillbox_Colour">$VAR[Info_Line_Episode_Banner_Color]</param>
+                </include>
+                <!-- MISC019: END Custom Infoline Episode Banners -->
 
                 <!-- Year / Premiered -->
                 <include content="Info_Line_Items">
@@ -1627,7 +1685,8 @@
 
     <include name="Info_Panel">
         <param name="container" />
-        <param name="plotheight">80</param>
+        <!-- MISC038: plotheight changed from 80 -->
+        <param name="plotheight">175</param>
         <param name="plotwidth">info_plot_w</param>
         <param name="colordiffuse">main_fg</param>
         <param name="ratings">true</param>
