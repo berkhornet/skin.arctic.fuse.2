@@ -348,8 +348,9 @@
                         <label>$PARAM[toplabel]</label>
                         <!-- MISC050: textcolour changed from font_main_bold -->
                         <font>font_mini_bold</font>
-                        <!-- MISC050: textcolour changed from $PARAM[textcolour] -->
-                        <textcolor>main_fg_90</textcolor>
+                        <!-- MISC050: textcolour changed from $PARAM[textcolour], shadowcolor added -->
+                        <textcolor>main_fg_100</textcolor>
+                        <shadowcolor>main_bg_30</shadowcolor>
                         <align>right</align>
                         <height>40</height>
                         <centertop>50%</centertop>
@@ -360,6 +361,7 @@
                         <label>$PARAM[bottomlabel]</label>
                         <font>font_tiny</font>
                         <textcolor>main_fg_70</textcolor>
+                        <shadowcolor>main_bg_30</shadowcolor>
                         <align>right</align>
                         <height>40</height>
                         <centertop>50%</centertop>
