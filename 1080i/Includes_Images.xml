@@ -243,7 +243,8 @@
     <variable name="Image_Player_Status">
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),Returning Series)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-day.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),Post Production)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-day.png</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),Canceled)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-xmark.png</value>
+        <!-- MISC041: value changed from $VAR[Info_RatingsLine_Object_Style]/status/calendar-xmark.png -->
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),Canceled)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-check.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),Ended)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-check.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),Released)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-check.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.Player.Status),In Production)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-day.png</value>
@@ -254,7 +255,8 @@
     <variable name="Image_ListItem_Status">
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Returning Series) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Returning Series)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-day.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Post Production) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Post Production)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-day.png</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Canceled) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Canceled)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-xmark.png</value>
+        <!-- MISC041: value changed from $VAR[Info_RatingsLine_Object_Style]/status/calendar-xmark.png -->
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Canceled) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Canceled)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-check.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Ended) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Ended)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-check.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Released) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Released)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-check.png</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),In Production) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),In Production)">flags/$VAR[Info_RatingsLine_Object_Style]/status/calendar-day.png</value>
@@ -313,6 +315,11 @@
     </variable>
 
     <variable name="Image_Foreground">
+        <!-- MISC053: START Custom Image_Foreground for Home Page PVR widgets -->
+        <value condition="String.IsEqual(System.CurrentControlID,100601)">$VAR[Custom_Image_Foreground]</value>
+        <value condition="String.IsEqual(System.CurrentControlID,100602)">$VAR[Custom_Image_Foreground]</value>
+        <value condition="String.IsEqual(System.CurrentControlID,300)">$VAR[Custom_Image_Foreground]</value>
+        <!-- MISC053: END Custom Image_Foreground for Home Page PVR widgets -->
         <value condition="$EXP[Exp_BackgroundArtwork_IsSimple]">$INFO[Window(Home).Property(TMDbHelper.SimpleBackground.BlurImage.Original)]</value>
         <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage.Original)]</value>
     </variable>
@@ -439,14 +446,23 @@
     </variable>
 
     <variable name="Image_CombinedStudio">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_studio))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_studio),resource://resource.images.studios.coloured/,.png]</value>
+        <!-- MISC044: START Use resource.images.studios.white -->
+        <!--value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_studio))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_studio),resource://resource.images.studios.coloured/,.png]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Network.1.Name),resource://resource.images.studios.coloured/,.png]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name),resource://resource.images.studios.coloured/,.png]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name),resource://resource.images.studios.coloured/,.png]</value -->
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_studio))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_studio),resource://resource.images.studios.white/,.png]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Network.1.Name),resource://resource.images.studios.white/,.png]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name),resource://resource.images.studios.white/,.png]</value>
+        <!-- MISC044: END Use resource.images.studios.white -->
     </variable>
 
     <variable name="Image_OSD_CombinedStudio">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Network.1.Name),resource://resource.images.studios.coloured/,.png]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Studio.1.Name),resource://resource.images.studios.coloured/,.png]</value>
+        <!-- MISC044: START Use resource.images.studios.white -->  
+        <!--value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Network.1.Name),resource://resource.images.studios.coloured/,.png]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Studio.1.Name),resource://resource.images.studios.coloured/,.png]</value -->
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Network.1.Name),resource://resource.images.studios.white/,.png]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Studio.1.Name),resource://resource.images.studios.white/,.png]</value>
+        <!-- MISC044: END Use resource.images.studios.white --> 
     </variable>
 
     <variable name="Image_FromWriter">
@@ -654,7 +670,8 @@
     <variable name="Image_PVRGuide_Indicator">
         <value condition="ListItem.IsRecording">indicator/record.png</value>
         <value condition="ListItem.HasTimer">indicator/timer.png</value>
-        <value condition="ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)">indicator/library.png</value>
+        <!-- PVR002: Custom Catch Up Flag (was indicator/library.png) -->
+        <value condition="ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)">indicator/hasarchive.png</value>
     </variable>
 
     <variable name="Image_OSD_UpNext_Playlist_Landscape">

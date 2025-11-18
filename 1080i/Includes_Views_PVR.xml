@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+    <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
     <!-- Group Switcher -->
@@ -27,13 +27,20 @@
                 <texturenofocus />
                 <font />
             </control>
-            <control type="group">
+            <!-- PVR005: remove original group name -->
+            <!-- control type="group">
                 <animation effect="fade" start="100" end="30" condition="true">Conditional</animation>
                 <include content="Info_Viewline">
                     <param name="label">$INFO[Control.GetLabel(28)]$INFO[Container.NumItems, (,)]</param>
                     <param name="top">20</param>
                     <param name="left">0</param>
                 </include>
+            </control -->
+            <!-- PVR005: alternative group name -->
+            <control type="label">
+                <label fallback="19055">$INFO[Control.GetLabel(28)]</label>
+                <font>font_epg_group_switcher</font>
+                <textcolor>$VAR[ColorGradient]</textcolor>
             </control>
         </control>
     </include>
@@ -247,7 +254,8 @@
             </control>
             <include>View_PVR_InformationPanel</include>
         </control>
-        <control type="group">
+        <!-- PVR014: disable additional EPG views --> 
+        <!-- control type="group">
             <visible>Control.IsVisible(502)</visible>
             <control type="group">
                 <include>Dimension_PVR_HalfGuide</include>
@@ -308,7 +316,7 @@
                 </include>
             </control>
             <include>View_PVR_InformationPanel</include>
-        </control>
+        </control -->
     </include>
 
     <include name="View_PVR_Full">
@@ -324,6 +332,37 @@
                 <visible>!Control.IsVisible(502)</visible>
                 <visible>!Control.IsVisible(503)</visible>
                 <include>View_Row_Header</include>
+                <!-- PVR010: START custom header for EPG plotbox -->                    
+                <control type="label">
+                    <height>15</height>                         
+                    <left>463</left>
+                    <bottom>120</bottom>
+                    <width>auto</width>
+                    <aligny>center</aligny>
+                    <align>left</align>                         
+                    <font>font_tiny_bold</font>                         
+                    <textcolor>main_fg_90</textcolor>
+                    <shadowcolor>main_bg_12</shadowcolor>
+                    <label>$VAR[TextPVRPlotboxHeader]</label>
+                    <visible>!String.IsEqual(ListItem.Title,ListItem.ChannelName)</visible>
+                    <visible>!Skin.HasSetting(Views.UseHalfPVRGuide)</visible>
+                </control>
+                <!-- PVR010: END custom header for EPG plotbox -->                    
+                <!-- PVR010: START custom textbox for EPG plotbox -->                      
+                <control type="textbox">
+                    <left>463</left>
+                    <bottom>25</bottom>
+                    <width>950</width>
+                    <height>90</height>
+                    <textcolor>main_fg_70</textcolor>
+                    <align>left</align>
+                    <font>font_tiny_24</font>
+                    <aligny>top</aligny>
+                    <label>$VAR[TextPVREPGProgramPlot]</label>
+                    <visible>!Skin.HasSetting(Views.UseHalfPVRGuide)</visible>
+                    <autoscroll delay="3500" time="3500" repeat="3500">Window.IsVisible(10702)</autoscroll>
+                </control>
+                <!-- PVR010: END custom plotbox for EPG -->
             </control>
             <control type="group">
                 <visible>Control.IsVisible(502) | Control.IsVisible(503)</visible>
@@ -361,11 +400,26 @@
         <param name="include_customwidth">true</param>
         <param name="include_hintlabel">true</param>
         <definition>
-
             <control type="group">
                 <include>Dimension_Bottombar</include>
                 <control type="group">
                     <include>Dimension_Furniture_Gutters</include>
+                    
+                    <!-- PVR010: START add background to hide plot when PVR menu open -->
+                    <control type="image">
+                        <texture>common/white.png</texture>
+                        <colordiffuse>$VAR[ColorBackground]</colordiffuse>
+                        <height>120</height>
+                        <left>380</left>
+                        <right>400</right>
+                        <top>-15</top>
+                        <!--centertop>25%</centertop -->
+                        <align>center</align>
+                        <aspectratio></aspectratio>
+                        <visible>!String.IsEqual(System.CurrentControlID,500)</visible>
+                    </control>
+                    <!-- PVR010: END add background to hide plot when PVR menu open -->
+
                     <include content="Object_Hidden_Button">
                         <param name="id">610</param>
                         <onup>50</onup>
@@ -376,7 +430,8 @@
                     <control type="grouplist" id="8000">
                         <orientation>horizontal</orientation>
                         <height>160</height>
-                        <centertop>50%</centertop>
+                        <!--PVR010: centertop changed from 50% -->
+                        <centertop>75%</centertop>
                         <align>center</align>
                         <left>40</left>
                         <right>60</right>

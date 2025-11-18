@@ -9,6 +9,21 @@
         <param name="autoheight">false</param>
         <param name="left">0</param>
         <definition>
+            <!-- MISC008: START include Label_Header_Main / Label_Header_Main_Home -->
+            <control type="textbox">
+                <top>-20</top>
+                <left>40</left>
+                <label>$VAR[Custom_Label_Header_Main]</label>
+                <textcolor>main_fg_100</textcolor>
+                <font>font_midi_bold</font>
+                <aligny>top</aligny>
+                <height max="160">100</height>
+                <visible>$PARAM[visible]</visible>
+                <visible>Skin.HasSetting(hub.home.disablesubmenu) | [!Skin.HasSetting(hub.home.disablesubmenu) + !Integer.IsEqual(System.CurrentControlID,300)] </visible>
+                <width>$PARAM[width]</width>
+                <autoscroll>false</autoscroll>              
+            </control>
+            <!-- MISC008: END Label_Header_Main / Label_Header_Main_Home -->
             <control type="textbox">
                 <top>-20</top>
                 <left>$PARAM[left]</left>
@@ -90,7 +105,8 @@
                 <param name="label">$PARAM[label]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="visible">True</param>
-                <param name="width">$PARAM[width]</param>
+                <!-- MISC008: param changed from $PARAM[width] (ensures rating line is displayed) -->
+                <param name="width">1000</param>
                 <param name="autoheight">true</param>
                 <param name="left">$PARAM[left]</param>
             </include>
@@ -158,8 +174,12 @@
     </include>
 
     <include name="Info_Line_Pillbox">
+        <!-- MISC019: parameter and definition added -->
+        <param name="Pillbox_Colour">main_fg_30</param>
+        <definition>
         <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
-            <param name="colordiffuse">main_fg_30</param>
+            <!-- MISC019: parameter changed from main_fg_30 -->
+            <param name="colordiffuse">$PARAM[Pillbox_Colour]</param>
             <param name="textcolor">main_fg_90</param>
             <param name="shadowcolor">main_bg_12</param>
             <nested />
@@ -169,9 +189,12 @@
             <param name="textcolor">panel_fg_90</param>
             <nested />
         </include>
+        </definition>
     </include>
 
     <include name="Info_Line_Label">
+        <!-- MISC019: parameter added -->
+        <!--param name="Pillbox_Colour">main_fg_30</param -->
         <definition>
             <include content="Object_Control" condition="!Skin.HasSetting(Info.EnablePillboxStyle)">
                 <param name="control">label</param>
@@ -184,6 +207,8 @@
             </include>
             <include content="Info_Line_Pillbox" condition="Skin.HasSetting(Info.EnablePillboxStyle)">
                 <param name="textcolor">$PARAM[textcolor]</param>
+                <!-- MISC019: parameter added -->
+                <param name="Pillbox_Colour">$PARAM[Pillbox_Colour]</param>
                 <nested />
             </include>
         </definition>
@@ -342,6 +367,10 @@
         <param name="items_04">false</param>
         <param name="items_05">false</param>
         <param name="items_06">false</param>
+        
+        <!-- MISC019: parameter added -->
+        <param name="Pillbox_Colour">main_fg_30</param>
+        
         <definition>
             <include content="Info_Line_Divider" condition="$PARAM[items_01] | $PARAM[items_02] | $PARAM[items_03] | $PARAM[items_04] | $PARAM[items_05] | $PARAM[items_06]">
                 <nested />
@@ -349,7 +378,10 @@
             </include>
             <include content="Info_Line_Label" condition="$PARAM[items_01] | $PARAM[items_02] | $PARAM[items_03] | $PARAM[items_04] | $PARAM[items_05] | $PARAM[items_06]">
                 <param name="textcolor">$PARAM[textcolor]</param>
+                <!-- MISC019: parameter added -->
+                <param name="Pillbox_Colour">$PARAM[Pillbox_Colour]</param>
                 <label>$PARAM[label_01]</label>
+                
                 <visible>$PARAM[visible_01]</visible>
                 <nested />
             </include>
@@ -1333,8 +1365,17 @@
             <include content="Info_Line_VideoQuality_Object">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="label">WEB</param>
-                <param name="visible">$PARAM[visible] + !$PARAM[is_8k] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web]</param>
+                <!-- MISC033:  + !Window.IsVisible(Home) added -->
+                <param name="visible">$PARAM[visible] + !$PARAM[is_8k] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web] + !Window.IsVisible(Home)</param>
             </include>
+            <!-- MISC033: START replace "WEB" with "INFO" on home page widgets --> 
+            <include content="Info_Line_VideoQuality_Icon">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="icon">flags/info-inverted.png</param>
+                <param name="width">40</param>
+                <param name="visible">$PARAM[visible] + !$PARAM[is_8k] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web] + Window.IsVisible(Home)</param>
+            </include>
+            <!-- MISC033: END replace "WEB" with "INFO" on home page widgets -->              
             <include content="Info_Line_VideoQuality_Icon">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="icon">flags/info-inverted.png</param>
@@ -1520,6 +1561,20 @@
                     <param name="visible_02">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_album))</param>
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
                 </include>
+                
+                <!-- MISC019: START Custom Infoline Episode Banners -->
+                <!-- include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_02">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_01">true</param>
+                    <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
+                    <!-- CurrentControlID of 102601 is Trakt Next Up widget; 300 is Home Menu; 450 is TV Shows Menu -->
+                    <!--param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + [String.IsEqual(System.CurrentControlID,102601) | String.IsEqual(System.CurrentControlID,300) | String.IsEqual(System.CurrentControlID,450)]]</param>
+                    <param name="Pillbox_Colour">$VAR[Info_Line_Episode_Banner_Color]</param>
+                </include>
+                <!-- MISC019: END Custom Infoline Episode Banners -->
 
                 <!-- Year / Premiered -->
                 <include content="Info_Line_Items">
@@ -1570,11 +1625,17 @@
 
                 <!-- Episode Number -->
                 <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_01">
+                    <!-- MISC047: Prevent episode NxNN display in Infoline for PVR items -->
+                    <!-- include content="Info_Line_Visible_01">
                         <param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param>
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">episode</param>
+                    </include -->                  
+                    <include content="Info_Line_Visible_01">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
                     </include>
+                    
                     <param name="items_06">true</param>
                     <param name="label_01">$INFO[$PARAM[container]ListItem.Season]$INFO[$PARAM[container]ListItem.Episode,x,]</param>
                     <param name="label_02">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_episode),x,]</param>
@@ -1615,9 +1676,12 @@
                 </include>
 
                 <!-- Genres -->
-                <include content="Info_Line_Items" condition="Skin.String(InfoLine.Optional,Genre)">
+                <!-- MISC046: remove condition="Skin.String(InfoLine.Optional,Genre) -->
+                <include content="Info_Line_Items">
                     <include content="Info_Line_Visible_03">
-                        <param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param>
+                        <!-- MISC046: No PVR genre - altvisible changed to false -->
+                        <!--param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param -->
+                        <param name="altvisible">false</param>
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">movie</param>
                         <param name="dbtype_02">tvshow</param>
@@ -1692,7 +1756,8 @@
                 </include>
 
                 <!-- End Time -->
-                <include content="Info_Line_Items"  condition="Skin.String(InfoLine.Optional,Ends)">
+                <!-- MISC046: remove condition="Skin.String(InfoLine.Optional,Ends) -->
+                <include content="Info_Line_Items">
                     <include content="Info_Line_Visible_05">
                         <param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param>
                         <param name="container">$PARAM[container]</param>
