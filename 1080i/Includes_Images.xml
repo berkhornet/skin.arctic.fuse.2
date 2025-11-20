@@ -445,6 +445,11 @@
         <value>special://skin/extras/icons/play2.png</value>
     </variable>
 
+    <variable name="Image_ContextFanart">
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_fanart)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_thumb)]</value>
+    </variable>
+
     <variable name="Image_CombinedStudio">
         <!-- MISC044: START Use resource.images.studios.white -->
         <!--value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_studio))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_studio),resource://resource.images.studios.coloured/,.png]</value>
