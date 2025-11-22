@@ -1476,9 +1476,9 @@
         <value condition="String.IsEqual(System.CurrentControlID,309) + Skin.HasSetting(SideMenu.SwapSearchForDiscover) + Skin.HasSetting(sidemenu.disableprofilelogo)"> HOME: DISCOVER</value>
         <value condition="!String.IsEmpty(Container(300).ListItem.Label) + String.IsEqual(System.CurrentControlID,300) + !Skin.HasSetting(sidemenu.disableprofilelogo)">$INFO[Container(300).ListItem.Label]</value>
         <value condition="!String.IsEmpty(Container(300).ListItem.Label) + String.IsEqual(System.CurrentControlID,300) + Skin.HasSetting(sidemenu.disableprofilelogo)">HOME: $INFO[Container(300).ListItem.Label]</value>
-        <!-- MISC008: add "HOME" to header when menu bar not visible -->
-        <value condition="!String.IsEmpty(Container(300).ListItem.Label) + String.IsEqual(System.CurrentControlID,300) + !Skin.HasSetting(sidemenu.disableprofilelogo)">$INFO[Container(300).ListItem.Label]</value>
-        <value condition="!String.IsEmpty(Container(300).ListItem.Label)">HOME:  $INFO[Container(300).ListItem.Label]</value>
+        <!-- MISC008: add "HOME" to header when menu bar not visible (DISABLED) -->
+        <!-- value condition="!String.IsEmpty(Container(300).ListItem.Label) + String.IsEqual(System.CurrentControlID,300) + !Skin.HasSetting(sidemenu.disableprofilelogo)">$INFO[Container(300).ListItem.Label]</value -->
+        <!-- value condition="!String.IsEmpty(Container(300).ListItem.Label)">HOME:  $INFO[Container(300).ListItem.Label]</value -->
         <!-- MISC008: END Use Side Menu Label instead of "Home" -->
         <value condition="!String.IsEmpty(Window.Property(SideMenu.CurrentName))">$INFO[Window.Property(SideMenu.CurrentName)]</value>
         <value condition="!String.IsEmpty(Skin.String(Home.Label))">$INFO[Skin.String(Home.Label)]</value>
