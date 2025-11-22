@@ -17,7 +17,7 @@
                 <height max="160">100</height>
                 <!-- Display house.png if Home Page Menu Bar IS NOT visible -->
                 <control type="image">
-                    <top>-6</top>
+                    <top>-7</top>
                     <left>-10</left>
                     <width>60</width>
                     <height>60</height>                                 
