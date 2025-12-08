@@ -52,6 +52,19 @@
                     <visible>Window.IsVisible(Home) + !Integer.IsEqual(System.CurrentControlID,300) + !Integer.IsEqual(System.CurrentControlID,450)</visible>
                     <width>$PARAM[width]</width>
                     <autoscroll>false</autoscroll>              
+                </control>
+                <!-- Header if NOT Home Page --> 
+                <control type="textbox"> 
+                    <left>0</left>
+                    <label>$VAR[Custom_Label_Header_Main]</label>
+                    <textcolor>main_fg_100</textcolor>
+                    <font>font_midi_bold</font>
+                    <aligny>top</aligny>
+                    <height max="160">100</height>
+                    <visible>$PARAM[visible]</visible>
+                    <visible>!Window.IsVisible(Home)</visible>
+                    <width>$PARAM[width]</width>
+                    <autoscroll>false</autoscroll>              
                 </control>                
             </control>    
             <!-- MISC008: END Label_Header_Main / Label_Header_Main_Home -->
